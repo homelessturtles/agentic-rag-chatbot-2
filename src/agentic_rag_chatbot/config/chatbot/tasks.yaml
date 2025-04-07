@@ -1,0 +1,48 @@
+retrieval_task:
+  description: >
+    Retrieve the most relevant information for: '{query}'. Your ONLY job is information retrieval.
+    
+    For ANY query (even ambiguous ones like "How does it work?"), use search_knowledge_base tool with multiple targeted search strategies:
+    1. Direct search with exact query terms
+    2. Expand with synonyms and related terms
+    
+    Report your search methodology and all results found, with their relevance scores.
+    DO NOT interpret the query or decide if it's in-scope - just retrieve information.
+  expected_output: >
+    A structured report of search results with relevance scores and methodology used.
+  agent: retriever
+
+domain_task:
+  description: >
+    Evaluate query relevance to Aparavi and analyze retrieved information.
+    
+    First, determine if query is in-scope for Aparavi knowledge base.
+    - For out-of-scope queries: Note this and recommend boundary response
+    - For ambiguous queries: Identify possible interpretations
+    - For specific queries: Assess information quality and completeness
+    
+    Then identify information gaps - what's missing that would provide a better answer?
+    Finally, organize information into a logical structure for response.
+  expected_output: >
+    1. Query classification (out-of-scope/ambiguous/specific)
+    2. Assessment of information quality
+    3. Identification of information gaps
+    4. Logical organization of key points
+  agent: domain_expert
+
+ux_task:
+  description: >
+    Craft the final user response based on domain expert's analysis.
+    
+    For out-of-scope: Create a brief, friendly boundary statement
+    For ambiguous: Acknowledge ambiguity and provide the most helpful interpretation
+    For specific: Format answer for maximum clarity and comprehension
+    
+    Focus on user experience principles:
+    - Progressive disclosure (most important info first)
+    - Clarity over comprehensiveness
+    - Appropriate formatting (lists/headings/etc.)
+    - Reading level appropriate for technical users
+  expected_output: >
+    Final response formatted for optimal user experience, with appropriate tone, structure, and level of detail.
+  agent: ux_specialist

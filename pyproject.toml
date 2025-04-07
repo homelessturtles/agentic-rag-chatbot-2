@@ -1,0 +1,29 @@
+[project]
+name = "agentic_rag_chatbot"
+version = "0.1.0"
+description = "agentic-rag-chatbot using crewAI"
+authors = [{ name = "Your Name", email = "you@example.com" }]
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "crewai-tools>=0.38.1",
+    "crewai[tools]>=0.108.0,<1.0.0",
+    "deepeval>=2.6.6",
+    "fastembed>=0.6.0",
+    "openai>=1.70.0",
+    "pypdf>=3.0.0",
+    "qdrant-client>=1.6.0",
+]
+
+[project.scripts]
+agentic_rag_chatbot = "agentic_rag_chatbot.main:run"
+run_crew = "agentic_rag_chatbot.main:run"
+train = "agentic_rag_chatbot.main:train"
+replay = "agentic_rag_chatbot.main:replay"
+test = "agentic_rag_chatbot.main:test"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.crewai]
+type = "crew"
